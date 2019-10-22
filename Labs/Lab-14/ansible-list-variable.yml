@@ -1,0 +1,15 @@
+---
+# by Waldemar Baldowski
+- hosts: all
+  gather_facts: no
+
+  vars:
+    hello:
+     - one
+     - two
+     - three
+
+  tasks:
+  - name: Ansible List Variable Example
+    debug:
+     msg:  "{{ hello[1] }}"

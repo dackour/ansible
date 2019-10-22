@@ -1,0 +1,44 @@
+# by Waldemar Bałdowski
+
+##########################
+GIT commands
+##########################
+Install git package on linux box (RHEL/CentOS):
+# yum install git
+
+Configure git for usage:
+# git config --global user.name "USERNAME"
+# git config --global user.email "EMAIL"
+
+Proxy settings
+# git config --global http.proxy "http://HOST:PORT"
+# git config --global https.proxy "https://HOST:PORT"
+
+Check settings:
+# git config --list
+
+##########################
+Clone repository:
+# git clone <URL>
+
+Enter local folder and add files:
+# git add <filename>
+# git add <folder>
+
+Commit changes and put comment:
+# git commit -m ”put comment for commit”
+
+Push changes to master branch:
+# git push origin master
+
+##########################
+Remove files or folder recursivelly:
+# git rm <filename>
+# git rm -r <folder>
+
+Commit changes and put comment:
+# git commit -m ”put comment for commit”
+
+Push changes to master branch:
+# git push origin master
+Note: You will be prompted for password.

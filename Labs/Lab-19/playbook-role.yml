@@ -1,0 +1,12 @@
+---
+# by Waldemar Baldowski
+- name: Setup ssh using ansible role
+  gather_facts: no
+  hosts: all
+  become: yes
+  become_user: root
+
+  roles:
+  - ansible-role-<name>
+  - ansible-role-<name>
+  - ansible-role-<name>

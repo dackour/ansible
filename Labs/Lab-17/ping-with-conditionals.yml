@@ -1,0 +1,20 @@
+---
+# by Waldemar Baldowski
+- hosts: all
+  gather_facts: yes
+
+  tasks:
+
+  - name: Linux - ping host
+    ping:
+    register: ping_output
+    when: "'RedHat' in ansible_distribution" or "'CentOS' in ansible_distribution"
+
+  - name: Windows - ping host
+    win_ping:
+    register: ping_output
+    when: "'Windows' in ansible_distribution"
+
+  - name: display output
+    debug:
+      msg: "{{ ping_output }}"

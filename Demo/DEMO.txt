@@ -1,0 +1,78 @@
+# by Waldemar Bałdowski
+# VIM setup
+~/.vimrc
+:set paste
+:syntax on
+
+# Installation
+- epel on rhel/centos
+- ansible + python
+- pip venv
+- pip modules and ansible
+
+
+# /etc/ansible/ansible.cfg
+# change settings for:
+
+#
+[privilege_escalation]
+become=True
+become_method=sudo
+become_user=root
+become_ask_pass=True
+
+# uncomment this to disable SSH key host checking
+host_key_checking = False
+
+
+
+########
+
+# Ansible control node
+192.168.50.50
+l: svc_ansible
+
+########
+
+# Managed nodes
+# inventory
+[controlnode]
+localhost ansible_connection=local
+
+[group1]
+isolated1 ansible_host=192.168.50.40
+
+[group2]
+isolated2 ansible_host=192.168.50.41
+
+[all:vars]
+ansible_user=svc_ansible
+ansible_port=22
+ansible_connection=ssh
+#ansible_connection=paramiko
+
+########
+
+# AdHoc commands
+ansible -i inventory all -m ping
+ansible -i inventory all -m command -a "uptime"
+ansible -i inventory all -m setup -a "filter=ansible_distribution"
+
+# Playbook execution
+ansible-playbook -i inventory ping.yml
+
+# debug
+ansible-playbook -vvvv -i inventory ping.yml
+
+# dry run
+ansible-playbook --check -i inventory ping.yml
+
+# ask vault password
+ansible-vault encrypt inventory
+ansible-playbook --ask-vault-pass -i inventory ping.yml
+# after test decrypt inventory file: ansible-vault decrypt inventory
+
+# limit inventory
+ansible-playbook -i inventory --limit group1 ping.yml
+
+########

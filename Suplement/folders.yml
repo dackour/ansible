@@ -1,0 +1,69 @@
+---
+- name: Playbook for folder managements
+
+  hosts: all
+  gather_facts: yes
+
+  tasks:
+
+  - name: Create set 1 of new folders
+    file:
+     path: "{{ item }}"
+     state: directory
+    loop:
+     - /tmp/dir-1
+     - /tmp/dir-2
+     - /tmp/dir-3
+     - /tmp/dir-4
+    when: inventory_hostname in groups['test']
+    register: a_create_status_1
+
+  #- name: Show status
+  #  debug:
+  #   var: a_create_status_1
+
+  - name: Create set 2 of new folders
+    file:
+     path: "{{ item }}"
+     state: directory
+    loop:
+     - /tmp/dir-5
+     - /tmp/dir-6
+     - /tmp/dir-7
+     - /tmp/dir-8
+    when: inventory_hostname in groups['prod']
+    register: a_create_status_2
+
+  #- name: Show status
+  #  debug:
+  #   var: a_create_status_2
+
+
+  - name: Remove set 1 of unused folders
+    file:
+     path: "{{ item }}"
+     state: absent
+    loop:
+     - /tmp/dir-4
+    when: inventory_hostname in groups['test']
+    register: a_remove_status_1
+
+  #- name: Show status
+  #  debug:
+  #   var: a_remove_status_1
+
+
+  - name: Remove set 2 of unused folders
+    file:
+     path: "{{ item }}"
+     state: absent
+    loop:
+     - /tmp/dir-8
+    when: inventory_hostname in groups['prod']
+    register: a_remove_status_2
+
+  #- name: Show status
+  #  debug:
+  #   var: a_remove_status_2
+
+# end.

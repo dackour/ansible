@@ -1,0 +1,14 @@
+---
+- name: This is simple skeleton for Playbook
+
+  hosts: all
+  gather_facts: no
+
+  tasks:
+
+  - name: Task name
+    debug:
+     msg: "Hello World"
+
+
+## end.

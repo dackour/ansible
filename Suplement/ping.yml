@@ -1,0 +1,12 @@
+---
+- name: Play 1
+
+  hosts: all
+  gather_facts: no
+
+  tasks:
+
+  - name: Check connectivity using ping module
+    ping:
+
+# end.

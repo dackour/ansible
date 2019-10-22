@@ -1,0 +1,24 @@
+---
+# by Waldemar Baldowski
+- hosts: all
+  gather_facts: yes
+  become: false
+  become_method: sudo
+  become_user: root
+
+  tasks:
+  - name: Create results file
+    template:
+     src: templates/file.txt.j2
+     dest: /tmp/file.txt
+     mode: '0644'
+
+  - name: Check results
+    command: cat /tmp/file.txt
+    register: output
+
+  - name: Display output from previous command
+    debug:
+     var: output.stdout_lines
+
+# end.

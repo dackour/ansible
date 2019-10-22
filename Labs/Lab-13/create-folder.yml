@@ -1,0 +1,26 @@
+---
+# by Waldemar Baldowski
+- hosts: all
+  gather_facts: no
+  become: false
+  become_method: sudo
+  become_user: root
+
+  tasks:
+  - name: Include vars file
+    include_vars:
+     file: vars.yml
+
+  - name: Display variable from vars.yml
+    debug:
+     var: a_dir_name
+
+  - name: Create folder on managed server
+    command: mkdir "{{ a_dir_name }}"
+    register: a_output
+
+  - name: Display output from previous command
+    debug:
+     var: a_output
+
+# end.

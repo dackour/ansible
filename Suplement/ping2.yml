@@ -1,0 +1,22 @@
+---
+- name: Play 1
+
+  hosts: all
+  gather_facts: true
+
+  vars:
+   a_accounting:
+    a_playbook: ping2.yml
+    a_username: "{{ lookup('env','LOGNAME') }}"
+    a_venv: "{{ lookup('env','VIRTUAL_ENV') }}"
+
+  tasks:
+
+  - name: Executed by
+    debug:
+     var: a_accounting
+
+  - name: Check connectivity using ping module
+    ping:
+
+# end.

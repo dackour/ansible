@@ -1,0 +1,27 @@
+---
+# by Waldemar Baldowski
+- hosts: all
+  gather_facts: no
+
+  vars:
+   folders:
+    - one
+    - two
+    - three
+
+  tasks:
+
+  - name: Create folders {{ folders }}
+    file:
+     path: /tmp/{{ item }}
+     state: directory
+     mode: '0750'
+    loop:
+     - "{{ folders[0] }}"
+     - "{{ folders[1] }}"
+     - "{{ folders[2] }}"
+    register: a_output
+
+  - name: Disply output
+    debug:
+     var: a_output

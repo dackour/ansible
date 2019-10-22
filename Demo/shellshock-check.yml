@@ -1,0 +1,32 @@
+---
+# by Waldemar Bałdowski
+- name: Fix Bash and test shellshock
+
+  hosts: all
+  gather_facts: no
+  become: true
+  become_method: sudo
+  become_user: root
+
+  ####
+  tasks:
+
+  - name: Update bash
+    yum:
+     name: bash
+     state: latest
+     update_cache: yes
+
+  - name: Test vulnerability
+    shell: env x='() { :;}; echo vulnerable' bash -c "echo this is a test"
+    args:
+     executable: /bin/bash
+    register: a_output
+    failed_when: "'vulnerable' in a_output.stdout"
+    ignore_errors: yes
+
+  - name: Display output
+    debug:
+     msg: "{{ a_output }}"
+
+## end.

@@ -1,0 +1,33 @@
+---
+# by Waldemar Baldowski
+- name: Modify sshd_config
+
+  hosts: all
+  gather_facts: no
+  become: true
+  become_method: sudo
+  become_user: root
+
+  ####
+  tasks:
+
+  - name: Change ssh config file and validate it
+    lineinfile:
+     path: /etc/ssh/sshd_config
+     state: present
+     regexp: '^(.*)PermitRootLogin(.*)$'
+     line: 'PermitRootLogin no'
+     backup: yes
+     validate: '/usr/sbin/sshd -tf %s'
+    notify: reload-sshd
+
+  ####
+  handlers:
+
+  - name: reload-sshd
+    service:
+     name: sshd
+     state: reloaded
+     enabled: yes
+
+## end.
