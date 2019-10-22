@@ -52,6 +52,13 @@ ansible_connection=ssh
 #ansible_connection=paramiko
 
 ########
+# SSH Keys
+ssh-keygen -t rsa
+ssh-copy-id <remote server>
+
+# SSH Agent when passphrase is used
+ssh-agent bash
+ssh-add ~/.ssh/id_rsa
 
 # AdHoc commands
 ansible -i inventory all -m ping
