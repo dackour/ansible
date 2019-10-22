@@ -1,0 +1,22 @@
+---
+# by Waldemar Baldowski
+- hosts: all
+  gather_facts: no
+
+  vars:
+   folders:
+    - one
+    - two
+    - three
+
+  tasks:
+
+  - name: Remove folders {{ folders }}
+    file:
+     path: /tmp/{{ item }}
+     state: absent
+    loop:
+     - "{{ folders }}"
+    register: a_output
+
+# end.

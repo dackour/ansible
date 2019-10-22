@@ -16,10 +16,7 @@
      path: /tmp/{{ item }}
      state: directory
      mode: '0750'
-    loop:
-     - "{{ folders[0] }}"
-     - "{{ folders[1] }}"
-     - "{{ folders[2] }}"
+    loop: "{{ folders }}"
     register: a_output
 
   - name: Disply output
